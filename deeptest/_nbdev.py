@@ -2,8 +2,7 @@
 
 __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 
-index = {"query": "01_activation.ipynb",
-         "WolframTester": "01_activation.ipynb"}
+index = {"WolframTester": "01_activation.ipynb"}
 
 modules = ["functional.py"]
 
