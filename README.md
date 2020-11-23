@@ -1,4 +1,7 @@
-# nbdev template
+# DeepTest
+> Unit Tests for Deep Learning
 
-Use this template to more easily create your nbdev project.
 
+## Install
+
+`pip install deeptest`
