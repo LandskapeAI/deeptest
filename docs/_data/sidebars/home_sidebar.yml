@@ -10,7 +10,7 @@ entries:
       title: Overview
       url: /
     - output: web,pdf
-      title: Activation Function
+      title: Functional
       url: activation.html
     output: web
     title: deeptest

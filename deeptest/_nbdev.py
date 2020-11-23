@@ -2,9 +2,10 @@
 
 __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 
-index = {}
+index = {"query": "01_activation.ipynb",
+         "WolframTester": "01_activation.ipynb"}
 
-modules = []
+modules = ["functional.py"]
 
 doc_url = "https://LandskapeAI.github.io/deeptest/"
 
