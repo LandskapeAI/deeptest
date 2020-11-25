@@ -93,7 +93,7 @@ nb_path: "01_activation.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">tester</span> <span class="o">=</span> <span class="n">WolframTester</span><span class="p">(</span><span class="s1">&#39;YOUR_API_KEY&#39;</span><span class="p">,</span> <span class="s1">&#39;torch&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">tester</span> <span class="o">=</span> <span class="n">WolframTester</span><span class="p">(</span><span class="s1">&#39;QYU645-4EGHX3JVLE&#39;</span><span class="p">,</span> <span class="s1">&#39;torch&#39;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -132,8 +132,8 @@ nb_path: "01_activation.ipynb"
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Stored Cache
-CPU times: user 226 ms, sys: 33.9 ms, total: 260 ms
-Wall time: 41.5 s
+CPU times: user 189 ms, sys: 20.8 ms, total: 210 ms
+Wall time: 31.4 s
 </pre>
 </div>
 </div>
@@ -171,7 +171,7 @@ Wall time: 41.5 s
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>tanh.pkl
+<pre>relu.pkl tanh.pkl
 </pre>
 </div>
 </div>
@@ -211,9 +211,107 @@ Wall time: 41.5 s
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Loaded Cache
-CPU times: user 2.63 ms, sys: 2.77 ms, total: 5.4 ms
-Wall time: 9.3 ms
+CPU times: user 2.43 ms, sys: 2.92 ms, total: 5.35 ms
+Wall time: 6.28 ms
 </pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Piecewise-Functions">Piecewise Functions<a class="anchor-link" href="#Piecewise-Functions"> </a></h2>
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">tester</span><span class="o">.</span><span class="n">test</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">,</span> <span class="s1">&#39;Piecewise[{{0, t &lt; 0 }, {x, t &gt; 0}}] at t = x&#39;</span><span class="p">,</span> <span class="n">xs</span><span class="p">,</span> <span class="n">shape</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Stored Cache
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">tester</span><span class="o">.</span><span class="n">test</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">,</span> <span class="s1">&#39;Piecewise[{{0, t &lt; 0 }, {x + 2, t &gt; 0}}] at t = x&#39;</span><span class="p">,</span> <span class="n">xs</span><span class="p">,</span> <span class="n">shape</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">AssertionError</span>                            Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-55-9b691258286f&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>tester<span class="ansi-blue-fg">.</span>test<span class="ansi-blue-fg">(</span>F<span class="ansi-blue-fg">.</span>relu<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#39;Piecewise[{{0, t &lt; 0 }, {x + 2, t &gt; 0}}] at t = x&#39;</span><span class="ansi-blue-fg">,</span> xs<span class="ansi-blue-fg">,</span> shape<span class="ansi-blue-fg">)</span>
+
+<span class="ansi-green-fg">&lt;ipython-input-47-cdd2ee88bc08&gt;</span> in <span class="ansi-cyan-fg">test</span><span class="ansi-blue-fg">(self, fn, fn_expr, xs, shape)</span>
+<span class="ansi-green-intense-fg ansi-bold">     37</span> 
+<span class="ansi-green-intense-fg ansi-bold">     38</span>         reals <span class="ansi-blue-fg">=</span> np<span class="ansi-blue-fg">.</span>array<span class="ansi-blue-fg">(</span>reals<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">.</span>reshape<span class="ansi-blue-fg">(</span>shape<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-fg">---&gt; 39</span><span class="ansi-red-fg">         </span>np<span class="ansi-blue-fg">.</span>testing<span class="ansi-blue-fg">.</span>assert_allclose<span class="ansi-blue-fg">(</span>ys<span class="ansi-blue-fg">,</span> reals<span class="ansi-blue-fg">,</span> rtol<span class="ansi-blue-fg">=</span><span class="ansi-cyan-fg">1e-2</span><span class="ansi-blue-fg">,</span> atol<span class="ansi-blue-fg">=</span><span class="ansi-cyan-fg">1e-5</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">     40</span> 
+<span class="ansi-green-intense-fg ansi-bold">     41</span>         self<span class="ansi-blue-fg">.</span>cache <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">{</span>fn_expr <span class="ansi-blue-fg">:</span> <span class="ansi-blue-fg">(</span>xs<span class="ansi-blue-fg">,</span> reals<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">}</span>
+
+    <span class="ansi-red-fg">[... skipping hidden 1 frame]</span>
+
+<span class="ansi-green-fg">~/miniconda3/lib/python3.8/site-packages/numpy/testing/_private/utils.py</span> in <span class="ansi-cyan-fg">assert_array_compare</span><span class="ansi-blue-fg">(comparison, x, y, err_msg, verbose, header, precision, equal_nan, equal_inf)</span>
+<span class="ansi-green-intense-fg ansi-bold">    844</span>                                 verbose<span class="ansi-blue-fg">=</span>verbose<span class="ansi-blue-fg">,</span> header<span class="ansi-blue-fg">=</span>header<span class="ansi-blue-fg">,</span>
+<span class="ansi-green-intense-fg ansi-bold">    845</span>                                 names=(&#39;x&#39;, &#39;y&#39;), precision=precision)
+<span class="ansi-green-fg">--&gt; 846</span><span class="ansi-red-fg">             </span><span class="ansi-green-fg">raise</span> AssertionError<span class="ansi-blue-fg">(</span>msg<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    847</span>     <span class="ansi-green-fg">except</span> ValueError<span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">    848</span>         <span class="ansi-green-fg">import</span> traceback
+
+<span class="ansi-red-fg">AssertionError</span>: 
+Not equal to tolerance rtol=0.01, atol=1e-05
+
+Mismatched elements: 4 / 10 (40%)
+Max absolute difference: 2.
+Max relative difference: 0.5
+ x: array([[[[0., 0., 0., 0., 0.],
+         [0., 2., 4., 6., 8.]]]], dtype=float32)
+ y: array([[[[ 0.,  0.,  0.,  0.,  0.],
+         [ 0.,  4.,  6.,  8., 10.]]]])</pre>
 </div>
 </div>
 

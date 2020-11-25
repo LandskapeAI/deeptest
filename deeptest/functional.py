@@ -20,7 +20,6 @@ class WolframTester():
         self.libdl = libdl
         self.cache = None
 
-
     def query(self, expr):
         client = wolframalpha.Client(self.key)
         res = client.query(expr)
@@ -34,7 +33,7 @@ class WolframTester():
 
     def test(self, fn, fn_expr, xs, shape):
 
-        if (self.cache is not None):
+        if (self.cache is not None and fn_expr in self.cache):
             self.test_cache(fn, fn_expr, xs, shape)
             return
 
