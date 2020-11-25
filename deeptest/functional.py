@@ -9,16 +9,20 @@ from torch import nn
 import torch
 import torch.nn.functional as F
 import re
+import os
+import json
 import numpy as np
 import pickle
 
 # Cell
 class WolframTester():
 
-    def __init__(self, api_key, libdl):
+    def __init__(self, api_key, libdl, cache_path = 'cache.pkl'):
         self.key = api_key
         self.libdl = libdl
-        self.cache = None
+        self.cache_path = cache_path
+        self.cache = dict()
+        self.load_cache(cache_path)
 
     def query(self, expr):
         client = wolframalpha.Client(self.key)
@@ -26,14 +30,16 @@ class WolframTester():
         vals = list()
         for pod in res.pods:
             if pod['@title'] == 'Result':
-                val = float(pod['subpod']['plaintext'][:6])
+                val = float(pod['subpod']['plaintext'].split('...')[0])
                 vals.append(val)
-        return np.array(val)
+
+        vals = np.around(np.array(val), 16)
+        return vals
 
 
     def test(self, fn, fn_expr, xs, shape):
 
-        if (self.cache is not None and fn_expr in self.cache):
+        if (fn_expr in self.cache):
             self.test_cache(fn, fn_expr, xs, shape)
             return
 
@@ -52,28 +58,30 @@ class WolframTester():
         reals = np.array(reals).reshape(shape)
         np.testing.assert_allclose(ys, reals, rtol=1e-2, atol=1e-5)
 
-        self.cache = {fn_expr : (xs, reals)}
-        self.save_cache(fn.__name__)
+        self.cache[fn_expr] = (xs, reals)
+        self.save_cache(self.cache_path)
 
 
     def test_cache(self, fn, fn_expr, xs, shape):
-        self.load_cache(fn.__name__)
         xs, reals = self.cache[fn_expr]
-
         if (self.libdl == 'torch'):
             ys = fn(xs).cpu().numpy()
+            ys = np.around(ys, 16)
             test_eq(ys.shape, shape)
             xs = xs.cpu().detach().numpy().flatten()
 
         np.testing.assert_allclose(ys, reals, rtol=1e-2, atol=1e-5)
 
 
-    def save_cache(self, name):
-        with open(f'{name}.pkl', 'wb') as f:
+    def save_cache(self, path):
+        with open(path, 'wb') as f:
             pickle.dump(self.cache, f, pickle.HIGHEST_PROTOCOL)
             print("Stored Cache")
 
-    def load_cache(self, name):
-        with open(f'{name}.pkl', 'rb') as f:
+    def load_cache(self, path):
+        if not os.path.exists(path):
+            print("No cache found. Will initialize on next query.")
+            return
+        with open(path, 'rb') as f:
             self.cache = pickle.load(f)
             print("Loaded Cache")
