@@ -4,4 +4,4 @@
 
 ## Install
 
-`pip install deeptest`
+`pip install git+https://github.com/LandskapeAI/deeptest`
